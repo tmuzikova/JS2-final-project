@@ -41,3 +41,30 @@ navigation.addEventListener("click", function (event) {
     navigation.classList.add("nav-closed");
   }
 });
+
+const drinkForms = document.querySelectorAll(".drink__controls");
+drinkForms.forEach((drinkForm) => {
+  drinkForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const datasetId = Number(e.target.dataset.id);
+    const drink = drinks.find((drink) => drink.id === datasetId);
+
+    if (drink) {
+      const newOrderedState = !drink.ordered;
+      const response = await fetch(
+        `http://localhost:4000/api/drinks/${datasetId}`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify([
+            { op: "replace", path: "/ordered", value: newOrderedState },
+          ]),
+        }
+      );
+      const responseData = await response.json();
+      console.log("Response from API:", responseData);
+
+      window.location.reload();
+    }
+  });
+});

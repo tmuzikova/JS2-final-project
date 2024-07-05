@@ -14,6 +14,7 @@ export const Menu = ({ drinks }) => {
           {drinks.map((drink) => (
             <Drink
               key={drink.id}
+              id={drink.id}
               name={drink.name}
               ordered={drink.ordered}
               image={drink.image}
