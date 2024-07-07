@@ -16,9 +16,11 @@ const fetchDrinks = async () => {
 
 const drinks = await fetchDrinks();
 
+const showMenu = true;
+
 document.querySelector("#root").innerHTML = render(
   <div className="page">
-    <Header />
+    <Header showMenu={showMenu} />
     <main>
       <Banner />
       <Menu drinks={drinks} />
